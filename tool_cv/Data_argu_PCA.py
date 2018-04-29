@@ -5,8 +5,9 @@ import argparse
 import random  
 from scipy import misc 
 img_path = "C:/Users/jieyang/Desktop/1"
-
-def PCA_Jittering(path):  
+save_img_path = "C:/Users/jieyang/Desktop/2"
+generate_times = 5
+def PCA_Jittering(path,cur_time):  
     img_list = os.listdir(path)  
     img_num = len(img_list)  
       
@@ -36,9 +37,15 @@ def PCA_Jittering(path):
           
         img2 = np.swapaxes(img2,0,2)  
         img2 = np.swapaxes(img2,0,1)  
-        save_name = 'pre'+str(i)+'.png'  
-        save_path = os.path.join(path, save_name)  
+        save_name = "PAC Jittering" + str(cur_time) + "_" + img_list[i]
+        '''
+        if os.path.isdir(save_img_path + "/" + str(cur_time) +"/") == False:
+            os.makedirs(save_img_path + "/" + str(cur_time) +"/")
+        '''
+        save_path = os.path.join(save_img_path, save_name)  
         misc.imsave(save_path,img2)  
 
 if __name__ == '__main__':
-    PCA_Jittering(img_path)
+    for i in range(generate_times):
+        print("curr", i)
+        PCA_Jittering(img_path, cur_time = i)
